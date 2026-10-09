@@ -9,7 +9,7 @@
 ## デモ
 
 <!-- 動作動画のリンクまたはGIFを貼る -->
-- !動作動画:(images/demo.gif)
+- ![運行情報ブザーの動作デモ](images/demo.gif)
 - Wokwiプロジェクト: [Wokwiで試す](https://wokwi.com/projects/477373780953701377)
 
 ## 何ができるか
