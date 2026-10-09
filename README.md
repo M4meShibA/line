@@ -8,9 +8,6 @@
 
 ## デモ
 
-<!-- 動作動画のリンクまたはGIFを貼る -->
-## デモ
-
 ![動作デモ](docs/demo.gif)
 
 - Wokwiプロジェクト: https://wokwi.com/projects/477373780953701377
