@@ -9,8 +9,8 @@
 ## デモ
 
 <!-- 動作動画のリンクまたはGIFを貼る -->
-- ![運行情報ブザーの動作デモ](images/demo.gif)
-- Wokwiプロジェクト: [Wokwiで試す](https://wokwi.com/projects/477373780953701377)
+- 動作動画: (準備中)
+- Wokwiプロジェクト: (準備中)
 
 ## 何ができるか
 
@@ -55,7 +55,7 @@ HTMLの解析やHTTPS通信はメモリを多く使うため、データ取得�
 ## 通信仕様 (MQTT)
 
 - ブローカー: `broker.hivemq.com`(公開ブローカー、ポート1883)
-- トピック: 他の利用者と重ならない名前に変更して使います(例: `your-unique-topic/status`)
+- トピック: 他の利用者と重ならない、推測されにくい名前を使います。本物の名前は `config.h` / `config.json` に置き、公開しません(リポジトリには例の名前 `your-unique-topic/status` だけが入っています)
 - メッセージ: 文字列 `NORMAL` / `DELAY` / `SUSPENDED`(大文字小文字は区別しません)
 - 未知のメッセージは無視します
 
@@ -70,13 +70,18 @@ HTMLの解析やHTTPS通信はメモリを多く使うため、データ取得�
    Adafruit SSD1306
    Adafruit GFX Library
    ```
-4. `firmware/sketch.ino` の内容を `sketch.ino` に貼り付け、`MQTT_TOPIC` を自分用の名前に変えて実行します。
+4. `firmware/sketch.ino` の内容を `sketch.ino` に貼り付けます。
+5. 自分だけのトピック名を使う時は、`config.h` というファイルを追加して、次の1行を書きます(`firmware/config.example.h` が見本です)。`config.h` がなければ、例の名前で動きます。
+   ```
+   #define MQTT_TOPIC_VALUE "自分だけのトピック名"
+   ```
+   本物の名前を入れたプロジェクトは、**保存・共有しないでください**。
 
 ### 2. PC側 (Python)
 ```
 pip install paho-mqtt
 ```
-`pc/train_monitor.py` の `TOPIC` をスケッチと同じ名前にして、次のように実行します。
+`pc/config.example.json` を `pc/config.json` にコピーして、`topic` をスケッチの `config.h` と同じ名前にします(`config.json` は `.gitignore` 済みです)。環境変数 `TRAIN_BUZZER_TOPIC` でも指定できます。その後、次のように実行します。
 
 ```
 python train_monitor.py
@@ -86,9 +91,8 @@ python train_monitor.py
 
 1回だけ手動で送って試す場合は、次のようにも書けます。
 
-```python
-import paho.mqtt.publish as publish
-publish.single("your-unique-topic/status", "DELAY", hostname="broker.hivemq.com")
+```
+python send.py DELAY
 ```
 
 ## 設計上の判断

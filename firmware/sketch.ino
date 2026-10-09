@@ -14,6 +14,14 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+// 本物のトピック名は config.h に書く(config.h は .gitignore 済みで公開しない)
+// config.h がない時は、例の名前で動く
+#if __has_include("config.h")
+#include "config.h"
+#else
+#define MQTT_TOPIC_VALUE "your-unique-topic/status"
+#endif
+
 const int BUZZER_PIN = 18;
 const int LED_GREEN  = 19;  // 平常
 const int LED_YELLOW = 17;  // 遅延
@@ -35,8 +43,8 @@ const char* WIFI_PASS = "";
 // MQTT (公開ブローカー)
 const char* MQTT_HOST = "broker.hivemq.com";
 const int   MQTT_PORT = 1883;
-// 他の人と被らないよう、必ず自分だけの名前に変えてください
-const char* MQTT_TOPIC = "train-buzzer-x7k2q9/status";
+// トピック名は config.h(なければ例の名前)から読む
+const char* MQTT_TOPIC = MQTT_TOPIC_VALUE;
 
 // 運行状態
 enum TrainState { NORMAL, DELAY_STATE, SUSPENDED };

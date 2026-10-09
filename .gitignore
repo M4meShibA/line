@@ -1,0 +1,8 @@
+# 本物のトピック名など、公開しない設定
+pc/config.json
+firmware/config.h
+.env
+
+# Python
+__pycache__/
+*.pyc

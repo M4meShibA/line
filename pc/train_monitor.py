@@ -8,8 +8,9 @@
 """
 import time
 import paho.mqtt.publish as publish
+from config import load_topic
 
-TOPIC = "train-buzzer-x7k2q9/status"  # スケッチの MQTT_TOPIC と同じ名前にする
+TOPIC = load_topic()  # 本物の名前は config.json か環境変数から読む(公開しない)
 BROKER = "broker.hivemq.com"
 INTERVAL_SEC = 10  # 模擬データ用。本物の取得に差し替えたら、5分(300)以上にする
 STATUS_FILE = "status.txt"
